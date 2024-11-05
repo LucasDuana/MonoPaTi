@@ -1,0 +1,34 @@
+services:
+
+  mysql-user:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./docker/volume_mysql_user:/var/lib/mysql
+    container_name: mysql-user
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user
+
+  mysql-scooter:
+    image: mysql:latest
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./docker/volume_mysql_scooter:/var/lib/mysql
+    container_name: mysql-scooter
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: scooter
+
+  mysql-travel:
+    image: mysql:latest
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./docker/volume_mysql_travel:/var/lib/mysql
+    container_name: mysql-travel
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: travel
