@@ -1,11 +1,12 @@
 package org.example.travelmicroservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,15 +15,21 @@ public class Travel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    private Double kilomenters;
+
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     private Integer scooterId;
     private Integer userId;
-    private Double kilomenters;
 
     private Integer stoppingStartStopId;
     private Integer stoppingEndStopId;
 
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pause> pauses;
 
 
     public Travel() {
