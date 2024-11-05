@@ -1,6 +1,7 @@
 package org.example.scootermicroservice.service;
 
 import org.example.scootermicroservice.dtos.ScooterDTO;
+import org.example.scootermicroservice.dtos.ScooterReportForUseTime;
 import org.example.scootermicroservice.model.Scooter;
 import org.example.scootermicroservice.model.Stopping;
 import org.example.scootermicroservice.repositories.ScooterRepository;
@@ -9,7 +10,9 @@ import org.example.scootermicroservice.request.LocationUpdateRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -25,6 +28,9 @@ public class ScooterService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public List<ScooterDTO> getScooters(String status) {
         if (status != null) {
             return this.scooterRepository.findByStatus(status).stream()
@@ -32,6 +38,12 @@ public class ScooterService {
                     .collect(Collectors.toList());
         }
         return this.scooterRepository.findAll().stream()
+                .map(scooter -> modelMapper.map(scooter, ScooterDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<ScooterDTO> getScootersOrderByDistance(){
+        return this.scooterRepository.findAllByOrderByTotalDistanceDesc().stream()
                 .map(scooter -> modelMapper.map(scooter, ScooterDTO.class))
                 .collect(Collectors.toList());
     }
@@ -114,4 +126,23 @@ public class ScooterService {
         scooter.getStopping().setLongitude(longitude);
         return this.modelMapper.map(this.scooterRepository.save(scooter), ScooterDTO.class);
     }
+
+    /**
+     * public List<ScooterReportForUseTime> getScooterUsageReportWithNames() {
+        String travelReportUrl = "http://travel-microservice/api/travels/usage-report";
+        ScooterReportForUseTime[] travelReports = restTemplate.getForObject(travelReportUrl, ScooterReportForUseTime[].class);
+
+        return Arrays.stream(travelReports).map(report -> {
+            // Obtenemos el nombre del scooter basado en algún método de búsqueda, como por ID
+            String scooterName = obtenerNombreScooterPorId(report.getScooterId());
+            report.setScooterName(scooterName);
+            return report;
+        }).collect(Collectors.toList());
+    }
+
+
+    private String obtenerNombreScooterPorId(Integer scooterId) {
+
+        return "Nombre del scooter";
+    } */
 }

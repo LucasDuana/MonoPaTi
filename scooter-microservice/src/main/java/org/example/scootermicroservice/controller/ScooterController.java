@@ -21,6 +21,11 @@ public class ScooterController {
         return ResponseEntity.ok(scooterService.getScooters(status));
     }
 
+    @GetMapping("/kilometers-report")
+    public ResponseEntity<?> getScooterOrderByDistance(){
+        return ResponseEntity.ok(scooterService.getScootersOrderByDistance());
+    }
+
     @GetMapping("/{id}")//works
     public ResponseEntity<ScooterDTO> getScooterById(@PathVariable Long id) {
         return ResponseEntity.ok(scooterService.getScooterById(id));

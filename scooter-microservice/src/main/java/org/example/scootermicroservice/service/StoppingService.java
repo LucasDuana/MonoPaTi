@@ -71,4 +71,5 @@ public class StoppingService {
         }
         this.stoppingRepository.deleteById(id);
     }
+
 }

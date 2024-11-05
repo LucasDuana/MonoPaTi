@@ -13,4 +13,6 @@ public interface ScooterRepository extends JpaRepository<Scooter, Long> {
 
     List<Scooter> findByStatus(String status);
 
+    List<Scooter> findAllByOrderByTotalDistanceDesc();
+
 }
