@@ -1,5 +1,6 @@
 package org.example.scootermicroservice.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.example.scootermicroservice.model.Stopping;
 
@@ -10,7 +11,7 @@ public class ScooterDTO {
     private Double totalUsageTime;
     private Double totalDistance;
     private String status;
-    private Stopping stopping;
+
 
     public ScooterDTO() {
     }

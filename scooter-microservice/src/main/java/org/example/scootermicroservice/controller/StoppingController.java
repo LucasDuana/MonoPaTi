@@ -1,8 +1,10 @@
 package org.example.scootermicroservice.controller;
 
 import org.example.scootermicroservice.dtos.StoppingDTO;
+import org.example.scootermicroservice.model.Stopping;
 import org.example.scootermicroservice.service.StoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,17 @@ public class StoppingController {
     @PostMapping("")
     public ResponseEntity<?> createStopping(@RequestBody StoppingDTO stopping){
         return ResponseEntity.ok(this.stoppingService.createStopping(stopping));
+    }
+
+    @GetMapping("/nearby")//works
+    public ResponseEntity<StoppingDTO> getStoppingsWithAvailableScooters(
+            @RequestParam int minScooters,
+            @RequestParam(required = false) Double latitude,
+            @RequestParam(required = false) Double longitude) {
+
+        StoppingDTO stopping = stoppingService.findStoppingsWithScooters(minScooters, latitude, longitude);
+
+       return ResponseEntity.ok(stopping);
     }
 
     @PutMapping("/{id}")

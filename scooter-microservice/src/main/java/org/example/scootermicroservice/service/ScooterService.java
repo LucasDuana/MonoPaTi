@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -118,6 +119,9 @@ public class ScooterService {
 
         return this.modelMapper.map(this.scooterRepository.save(existingScooter), ScooterDTO.class);
     }
+
+
+
 
     public ScooterDTO updateScooterUbication(Long id, double latitude, double longitude) {
         Scooter scooter = this.scooterRepository.findById(id)
