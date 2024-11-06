@@ -7,6 +7,7 @@ import org.example.scootermicroservice.model.Stopping;
 import org.example.scootermicroservice.repositories.ScooterRepository;
 import org.example.scootermicroservice.repositories.StoppingRepository;
 import org.example.scootermicroservice.request.LocationUpdateRequest;
+import org.example.scootermicroservice.request.TravelRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,22 +128,40 @@ public class ScooterService {
         return this.modelMapper.map(this.scooterRepository.save(scooter), ScooterDTO.class);
     }
 
-    /**
-     * public List<ScooterReportForUseTime> getScooterUsageReportWithNames() {
-        String travelReportUrl = "http://travel-microservice/api/travels/usage-report";
-        ScooterReportForUseTime[] travelReports = restTemplate.getForObject(travelReportUrl, ScooterReportForUseTime[].class);
 
-        return Arrays.stream(travelReports).map(report -> {
-            // Obtenemos el nombre del scooter basado en algún método de búsqueda, como por ID
-            String scooterName = obtenerNombreScooterPorId(report.getScooterId());
-            report.setScooterName(scooterName);
-            return report;
-        }).collect(Collectors.toList());
+    public List<ScooterReportForUseTime> getScooterUsageReportWithPauses() {
+        String travelReportUrl = "http://localhost:8082/travels/usage-report-pause";
+        TravelRequest[] travelRequests = restTemplate.getForObject(travelReportUrl, TravelRequest[].class);
+
+        return Arrays.stream(travelRequests)
+                .map(this::convertToScooterReport)
+                .collect(Collectors.toList());
+    }
+
+    public List<ScooterReportForUseTime> getScooterUsageReport() {
+        String travelReportUrl = "http://localhost:8082/travels/total-report-pause";
+        TravelRequest[] travelRequests = restTemplate.getForObject(travelReportUrl, TravelRequest[].class);
+
+        return Arrays.stream(travelRequests)
+                .map(this::convertToScooterReport)
+                .collect(Collectors.toList());
+    }
+
+    private ScooterReportForUseTime convertToScooterReport(TravelRequest travelRequest) {
+        ScooterReportForUseTime report = new ScooterReportForUseTime();
+        report.setDate(travelRequest.getDate());
+        report.setEffectiveUsageTime(travelRequest.getEffectiveUsageTime());
+        String scooterName = getScooterNameById(travelRequest.getScooterId());
+        report.setScooterName(scooterName);
+
+        return report;
     }
 
 
-    private String obtenerNombreScooterPorId(Integer scooterId) {
+    private String getScooterNameById(Long scooterId) {
 
-        return "Nombre del scooter";
-    } */
+        Scooter scooter = this.scooterRepository.findById(scooterId).get();
+
+        return scooter.getName();
+    }
 }

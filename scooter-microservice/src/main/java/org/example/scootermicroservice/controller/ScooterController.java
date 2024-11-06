@@ -26,6 +26,16 @@ public class ScooterController {
         return ResponseEntity.ok(scooterService.getScootersOrderByDistance());
     }
 
+    @GetMapping("/total-timeUsage")
+    public ResponseEntity<?> getTotalTimeUsage(){
+        return ResponseEntity.ok(scooterService.getScooterUsageReport());
+    }
+
+    @GetMapping("/total-timeUsage-withPauses")
+    public ResponseEntity<?> getTotalTimeUsageWithPauses(){
+        return ResponseEntity.ok(scooterService.getScooterUsageReportWithPauses());
+    }
+
     @GetMapping("/{id}")//works
     public ResponseEntity<ScooterDTO> getScooterById(@PathVariable Long id) {
         return ResponseEntity.ok(scooterService.getScooterById(id));
