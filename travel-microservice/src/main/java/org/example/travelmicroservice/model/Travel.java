@@ -1,5 +1,6 @@
 package org.example.travelmicroservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Travel {
     private Integer stoppingStartStopId;
     private Integer stoppingEndStopId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pause> pauses;
 

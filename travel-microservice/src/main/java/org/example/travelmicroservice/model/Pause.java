@@ -1,5 +1,6 @@
 package org.example.travelmicroservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class Pause {
     @ManyToOne
     @JoinColumn(name = "travel_id", nullable = false)
     private Travel travel;
-
+    @JsonIgnore
     public Pause() {
     }
 
