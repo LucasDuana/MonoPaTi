@@ -1,6 +1,7 @@
 package org.example.travelmicroservice.controller;
 
 import org.example.travelmicroservice.dtos.TravelDTO;
+import org.example.travelmicroservice.dtos.TravelReportDTO;
 import org.example.travelmicroservice.services.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +49,16 @@ public class TravelController {
         return ResponseEntity.status(204).body("Travel with id " + id + " was deleted successfully");
     }
 
+    @GetMapping("/total-usage-report")
+    public ResponseEntity<?> getTotalReport(){
+        return ResponseEntity.ok(this.travelService.getTotalUsageReport());
+    }
+
+
+    @GetMapping("/usage-report-pause")
+    public ResponseEntity<List<TravelReportDTO>> getUsageReport() {
+        return ResponseEntity.ok(this.travelService.getUsageReport());
+    }
 
 
 

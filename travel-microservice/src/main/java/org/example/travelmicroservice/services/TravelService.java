@@ -1,11 +1,14 @@
 package org.example.travelmicroservice.services;
 
 import org.example.travelmicroservice.dtos.TravelDTO;
+import org.example.travelmicroservice.dtos.TravelReportDTO;
 import org.example.travelmicroservice.model.Travel;
 import org.example.travelmicroservice.repositories.TravelRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,5 +51,46 @@ public class TravelService {
     public void deleteTravelById(Long id) {
         travelRepository.deleteById(id);
     }
+
+
+    private TravelReportDTO generateReport(Travel travel, Duration duration){
+
+
+        long hours = duration.toHours();
+        long minutes = duration.minusHours(hours).toMinutes();
+        String friendlyDuration = String.format("%d hours %d minutes", hours, minutes);
+
+        TravelReportDTO reportDTO = new TravelReportDTO();
+        reportDTO.setTravelId(travel.getId());
+        reportDTO.setScooterId(travel.getScooterId());
+        reportDTO.setDate(travel.getDate());
+        reportDTO.setEffectiveUsageTime(friendlyDuration);
+
+        return reportDTO;
+    }
+    public List<TravelReportDTO> getUsageReport() {
+        List<Travel> travels = this.travelRepository.findAll();
+
+        return travels.stream().map(travel -> {
+            Duration totalTravelTime = Duration.between(travel.getStartTime(), travel.getEndTime());
+            Duration totalPauseTime = travel.getPauses().stream()
+                    .map(pause -> Duration.between(pause.getStartTime(), pause.getEndTime()))
+                    .reduce(Duration.ZERO, Duration::plus);
+
+            Duration effectiveUsageTime = totalTravelTime.minus(totalPauseTime);
+
+            return this.generateReport(travel, effectiveUsageTime);
+        }).collect(Collectors.toList());
+    }
+
+    public List<TravelReportDTO> getTotalUsageReport() {
+        List<Travel> travels = travelRepository.findAll();
+
+        return travels.stream().map(travel -> {
+            Duration totalTravelTime = Duration.between(travel.getStartTime(), travel.getEndTime());
+            return this.generateReport(travel, totalTravelTime);
+        }).collect(Collectors.toList());
+    }
+
 
 }
