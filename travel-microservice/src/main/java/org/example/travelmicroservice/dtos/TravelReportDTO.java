@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class TravelReportDTO {
 
     private Long travelId;
-    private Integer scooterId;
+    private Long scooterId;
     private LocalDate date;
     private String effectiveUsageTime;
 }

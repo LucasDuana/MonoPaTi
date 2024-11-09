@@ -1,5 +1,4 @@
-package org.example.travelmicroservice.dtos;
-
+package org.example.scootermicroservice.dtos;
 
 import lombok.Data;
 

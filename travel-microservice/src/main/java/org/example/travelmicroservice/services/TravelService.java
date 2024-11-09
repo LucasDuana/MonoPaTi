@@ -2,6 +2,7 @@ package org.example.travelmicroservice.services;
 
 import org.example.travelmicroservice.dtos.TravelDTO;
 import org.example.travelmicroservice.dtos.TravelReportDTO;
+import org.example.travelmicroservice.dtos.TravelsCountDTO;
 import org.example.travelmicroservice.model.Travel;
 import org.example.travelmicroservice.repositories.TravelRepository;
 import org.modelmapper.ModelMapper;
@@ -29,6 +30,19 @@ public class TravelService {
 
     public TravelDTO createTravel(TravelDTO travelDTO) {
         return modelMapper.map(travelRepository.save(modelMapper.map(travelDTO, Travel.class)), TravelDTO.class);
+    }
+
+    public List<TravelsCountDTO> getTravelsByYearAndMinTravels(int year, int minTravels) {
+        List<Object[]> results = travelRepository.findScootersByYearAndMinTravels(year, minTravels);
+
+        return results.stream().map(result -> {
+            Long scooterId = (Long) result[0];
+            Long travelCount = (Long) result[1];
+            TravelsCountDTO dto = new TravelsCountDTO();
+            dto.setScooterId(scooterId);
+            dto.setTravelsCount(travelCount);
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public TravelDTO getTravelById(Long id) {

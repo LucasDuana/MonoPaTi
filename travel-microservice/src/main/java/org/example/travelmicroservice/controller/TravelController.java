@@ -2,6 +2,7 @@ package org.example.travelmicroservice.controller;
 
 import org.example.travelmicroservice.dtos.TravelDTO;
 import org.example.travelmicroservice.dtos.TravelReportDTO;
+import org.example.travelmicroservice.dtos.TravelsCountDTO;
 import org.example.travelmicroservice.services.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class TravelController {
         return ResponseEntity.ok(this.travelService.getTravels());
     }
 
+
     //POST /travels create a travel
     @PostMapping("")
     public ResponseEntity<TravelDTO> createTravel(TravelDTO travelDTO) {
@@ -34,6 +36,7 @@ public class TravelController {
     public ResponseEntity<TravelDTO> getTravelById(@PathVariable Long id){
         return ResponseEntity.ok(this.travelService.getTravelById(id));
     }
+
 
     //PUT /travels/{id} update a travel by id
     @PutMapping("/{id}")
@@ -52,6 +55,14 @@ public class TravelController {
     @GetMapping("/total-usage-report")
     public ResponseEntity<?> getTotalReport(){
         return ResponseEntity.ok(this.travelService.getTotalUsageReport());
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<TravelsCountDTO>> getTravelsByYearAndMinTravels(
+            @RequestParam int year,
+            @RequestParam int minTravels) {
+        List<TravelsCountDTO> travels = travelService.getTravelsByYearAndMinTravels(year, minTravels);
+        return ResponseEntity.ok(travels);
     }
 
 

@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/scooters")
 public class ScooterController {
+
     @Autowired
     private ScooterService scooterService;
 
@@ -19,6 +20,13 @@ public class ScooterController {
     @GetMapping("")//works
     public ResponseEntity<List<ScooterDTO>> getAllScooters(@RequestParam(required = false) String status) {
         return ResponseEntity.ok(scooterService.getScooters(status));
+    }
+
+    @GetMapping("/filter-by-travels")
+    public ResponseEntity<List<ScooterDTO>> getScootersWithMoreThanXTravelsInYear(
+            @RequestParam int travels,
+            @RequestParam int year) {
+        return ResponseEntity.ok(scooterService.getScootersWithMoreThanXTravelsInYear(travels, year));
     }
 
     @GetMapping("/kilometers-report")

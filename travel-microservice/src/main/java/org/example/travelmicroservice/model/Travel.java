@@ -23,7 +23,7 @@ public class Travel {
     private LocalTime startTime;
     private LocalTime endTime;
 
-    private Integer scooterId;
+    private Long scooterId;
     private Integer userId;
 
     private Integer stoppingStartStopId;
