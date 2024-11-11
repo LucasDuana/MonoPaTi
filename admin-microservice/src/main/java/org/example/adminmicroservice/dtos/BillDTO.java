@@ -2,12 +2,14 @@ package org.example.adminmicroservice.dtos;
 
 import jakarta.persistence.OneToOne;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.adminmicroservice.model.Tariff;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class BillDTO {
     private Long userId;
     private Long tripId;

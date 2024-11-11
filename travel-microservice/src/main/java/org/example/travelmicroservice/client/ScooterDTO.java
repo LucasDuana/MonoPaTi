@@ -16,7 +16,7 @@ public class ScooterDTO {
     private Double latitude;
     private Double longitude;
 
-    private StoppingDTO stopping;
+
 
     public ScooterDTO() {
     }

@@ -26,7 +26,13 @@ public class BillController {
     public ResponseEntity<List<BillDTO>> getAllBills() {
         return ResponseEntity.ok(this.billService.getAllBills());
     }
-
+    @GetMapping("/total-billed")
+    public Double getTotalBilledInRange(
+            @RequestParam int year,
+            @RequestParam int startMonth,
+            @RequestParam int endMonth) {
+        return billService.getTotalBilledInRange(year, startMonth, endMonth);
+    }
     /*//Create a bill
     @PostMapping("/create/{travelId}")
     public ResponseEntity<BillDTO> createBill(@PathVariable Long travelId) {

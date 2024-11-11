@@ -42,19 +42,22 @@ public class TravelService {
     }
 
     public TravelDTO finalizarViaje(Long travelId){
-        Travel travel = this.travelRepository.findById(travelId).get();
-        /*String urlScooter = "http://localhost:8081/scooters/"+travel.getScooterId();
+        TravelDTO travel = this.getTravelById(travelId);
 
-        ScooterDTO scooter= this.restTemplate.getForObject(urlScooter, ScooterDTO.class);
+        //get scooter associated to the trip
+        String urlScooter = "http://localhost:8081/scooters/" + travel.getScooterId();
+        ScooterDTO scooter = restTemplate.getForObject(urlScooter, ScooterDTO.class);
 
-        String urlStopping = "http://localhost:8081/stoppings/"+travel.getStoppingEndStopId();
-        StoppingDTO stopping=this.restTemplate.getForObject(urlStopping, StoppingDTO.class);*/
+        //get stopping associated to the trip
+        String urlStopping = "http://localhost:8081/stoppings/" + travel.getStoppingEndStopId();
+        StoppingDTO stopping = restTemplate.getForObject(urlStopping, StoppingDTO.class);
 
-        String billUrl= "http://localhost:8083/bills/create/"+travelId;
-        BillDTO result=this.restTemplate.postForObject(billUrl, null, BillDTO.class);
-
-        return modelMapper.map(travel, TravelDTO.class);
-
+        if(scooter.getLatitude().equals(stopping.getLatitude()) && scooter.getLongitude().equals(stopping.getLongitude())) {
+            String urlPay= "http://localhost:8083/bills/create/" + travelId;
+            restTemplate.postForObject(urlPay, null, String.class);
+            return travel;
+        }
+        return null;
     }
 
 

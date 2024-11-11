@@ -1,5 +1,6 @@
 package org.example.adminmicroservice.service;
 
+import org.example.adminmicroservice.classes.AccountDTO;
 import org.example.adminmicroservice.classes.TravelDTO;
 import org.example.adminmicroservice.dtos.BillDTO;
 import org.example.adminmicroservice.dtos.UserDTO;
@@ -9,8 +10,7 @@ import org.example.adminmicroservice.repositories.BillRepository;
 import org.example.adminmicroservice.repositories.TariffRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -50,6 +50,9 @@ public class BillService {
         return duration.toMinutes();
     }
 
+    public Double getTotalBilledInRange(int year, int startMonth, int endMonth) {
+        return billRepository.getTotalBilledInRange(year, startMonth, endMonth);
+    }
     //create a bill
     /*public BillDTO createBill(Long travelId) {
         String url = "http://localhost:8082/travels/" + travelId;
@@ -81,9 +84,13 @@ public class BillService {
         }
     }*/
 
+
+
     public BillDTO createBill(Long travelId){
         String urlGetTripAsociated = "http://localhost:8082/travels/"+travelId;
         TravelDTO travelDTO = restTemplate.getForObject(urlGetTripAsociated, TravelDTO.class);
+        System.out.println(travelDTO);
+        System.out.println("Duana trolo");
 
         Tariff actualTariff=this.tariffRepository.findLatestTariff(LocalDate.now()).get();
 
@@ -98,13 +105,23 @@ public class BillService {
         bill.setTotalCost(priceTrip);
         bill.setDate(LocalDate.now());
 
-        String urlDiscountPriceUser= "http://localhost:8080/users/"+travelDTO.getUserId()+"/discount?amount="+priceTrip;
+        // Construye la URL completa para el PUT
+        String urlDiscountPriceUser = "http://localhost:8080/users/" + travelDTO.getUserId() + "/discount?amount=" + priceTrip;
 
-        boolean chargeSuccess = restTemplate.getForObject(urlDiscountPriceUser, Boolean.class);
-        if (chargeSuccess)
-            return modelMapper.map(billRepository.save(bill), BillDTO.class);
-        else{
-            throw new RuntimeException("No se pudo aplicar el cargo en la cuenta del usuario.");
-        }
+// Crea un HttpEntity vacío para la solicitud sin cuerpo
+        HttpEntity<Void> requestEntity = new HttpEntity<>(null);
+
+// Realiza la solicitud PUT
+        ResponseEntity<AccountDTO> responseEntity = restTemplate.exchange(
+                urlDiscountPriceUser,
+                HttpMethod.PUT,
+                requestEntity,
+                AccountDTO.class
+        );
+
+// Obtén el objeto AccountDTO de la respuesta
+        AccountDTO accountDTOResponse = responseEntity.getBody();
+
+        return modelMapper.map(billRepository.save(bill), BillDTO.class);
     }
 }

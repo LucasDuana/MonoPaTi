@@ -17,8 +17,7 @@ public class StoppingDTO {
     private Double latitude;
     private Double longitude;
 
-    @JsonIgnore
-    private List<ScooterDTO> scooters;
+
 
     public StoppingDTO() {
     }

@@ -4,6 +4,7 @@ import org.example.adminmicroservice.dtos.AdminDTO;
 import org.example.adminmicroservice.dtos.ScooterMaintenanceDTO;
 import org.example.adminmicroservice.model.Admin;
 import org.example.adminmicroservice.repositories.AdminRepository;
+import org.example.adminmicroservice.repositories.BillRepository;
 import org.example.adminmicroservice.request.ScooterKmsRequest;
 import org.example.adminmicroservice.request.TravelRequest;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,9 @@ public class AdminService {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private BillRepository billRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -103,6 +107,11 @@ public class AdminService {
     }
     }*/
 
+    //Get amount in range months and year
+    public Double getTotalAmountInYear(int year, List<Integer> meses) {
+        return this.billRepository.getTotalAmountInYear(year, meses);
+    }
+
 
 
     //get total invoice amount in date range
@@ -170,12 +179,6 @@ public class AdminService {
 
         TravelRequest[] travelRequests = restTemplate.getForObject(travelReportUrl, TravelRequest[].class);
 
-        if (travelRequests != null) {
-            System.out.println("Viajes recibidos: " + Arrays.toString(travelRequests));
-        } else {
-            System.out.println("No se recibieron datos de viajes.");
-        }
-
         return travelRequests != null ? Arrays.asList(travelRequests) : Collections.emptyList();
     }
 
@@ -183,12 +186,6 @@ public class AdminService {
         String scooterKmUrl = "http://localhost:8081/scooters/kilometers-report";
 
         ScooterKmsRequest[] scooters = restTemplate.getForObject(scooterKmUrl, ScooterKmsRequest[].class);
-
-        if (scooters != null) {
-            System.out.println("Scooters recibidos: " + Arrays.toString(scooters));
-        } else {
-            System.out.println("No se recibieron datos de scooters.");
-        }
 
         return scooters != null ? Arrays.asList(scooters) : Collections.emptyList();
     }
