@@ -60,9 +60,9 @@ public class TravelController {
     @GetMapping("/filter")
     public ResponseEntity<List<TravelsCountDTO>> getTravelsByYearAndMinTravels(
             @RequestParam int year,
-            @RequestParam int minTravels) {
-        List<TravelsCountDTO> travels = travelService.getTravelsByYearAndMinTravels(year, minTravels);
-        return ResponseEntity.ok(travels);
+            @RequestParam int travels) {
+        List<TravelsCountDTO> resultTravels = travelService.getTravelsByYearAndMinTravels(year, travels);
+        return ResponseEntity.ok(resultTravels);
     }
 
 

@@ -4,6 +4,7 @@ import org.example.travelmicroservice.dtos.TravelDTO;
 import org.example.travelmicroservice.dtos.TravelReportDTO;
 import org.example.travelmicroservice.dtos.TravelsCountDTO;
 import org.example.travelmicroservice.model.Travel;
+import org.example.travelmicroservice.repositories.PauseRepository;
 import org.example.travelmicroservice.repositories.TravelRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class TravelService {
 
     @Autowired
     private TravelRepository travelRepository;
+
+    @Autowired
+    private PauseRepository pauseRepository;
 
 
     public List<TravelDTO> getTravels() {
@@ -46,8 +50,11 @@ public class TravelService {
     }
 
     public TravelDTO getTravelById(Long id) {
-        return modelMapper.map(travelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Travel not found")), TravelDTO.class);
-    }
+        TravelDTO travelDTO = modelMapper.map(travelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Travel not found")), TravelDTO.class);
+        int longPauses= this.pauseRepository.countLongPausesByTravelId(id);
+        travelDTO.setLongPauses(longPauses);
+        return travelDTO;
+        }
 
     public TravelDTO updateTravel(Long id, TravelDTO travelDTO) {
         Travel travel = travelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Travel not found"));

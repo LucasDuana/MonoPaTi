@@ -46,15 +46,26 @@ public class ScooterService {
                 .collect(Collectors.toList());
     }
 
+    public List<ScooterDTO> getScootersInUse() {
+        return this.scooterRepository.findByStatus("in_use").stream()
+                .map(scooter -> modelMapper.map(scooter, ScooterDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<ScooterDTO> getScootersInMaintenance(){
+        return this.scooterRepository.findByStatus("maintenance").stream()
+                .map(scooter -> modelMapper.map(scooter, ScooterDTO.class))
+                .collect(Collectors.toList());
+    }
+
     public List<ScooterDTO> getScootersWithMoreThanXTravelsInYear(int travels, int year) {
-        // Define la URL del endpoint de viajes
+
         String url = "http://localhost:8082/travels/filter?year=" + year + "&travels=" + travels;
 
 
-        // Llama al microservicio de viajes
         TravelDTO[] travelDtos = restTemplate.getForObject(url, TravelDTO[].class);
 
-        // Procesa la respuesta para obtener los IDs de los scooters que cumplen el criterio
+
         List<Long> scooterIds = Arrays.stream(travelDtos)
                 .map(TravelDTO::getScooterId)
                 .collect(Collectors.toList());
@@ -64,6 +75,7 @@ public class ScooterService {
                 .map(scooter -> modelMapper.map(scooter, ScooterDTO.class))
                 .collect(Collectors.toList());
     }
+
 
 
     public List<ScooterDTO> getScootersOrderByDistance(){
@@ -182,6 +194,8 @@ public class ScooterService {
             return null;
         }
     }
+
+
 
     private List<ScooterReportForUseTime> generateConsolidatedReports(TravelRequest[] travelRequests) {
         Map<Long, List<TravelRequest>> groupedByScooter = Arrays.stream(travelRequests)
