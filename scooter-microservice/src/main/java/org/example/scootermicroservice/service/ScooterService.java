@@ -212,6 +212,7 @@ public class ScooterService {
                     String totalDurationStr = formatDuration(totalDuration);
                     String scooterName = getScooterNameById(scooterId);
                     ScooterReportForUseTime report = new ScooterReportForUseTime();
+                    report.setScooterId(scooterId);
                     report.setScooterName(scooterName);
                     report.setEffectiveUsageTime(totalDurationStr);
                     return report;

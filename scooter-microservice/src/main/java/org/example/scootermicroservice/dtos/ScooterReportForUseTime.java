@@ -9,5 +9,5 @@ public class ScooterReportForUseTime {
 
     private String scooterName;
     private String effectiveUsageTime;
-    private Long ScooterId;
+    private Long scooterId;
 }

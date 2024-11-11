@@ -1,14 +1,15 @@
 package org.example.travelmicroservice.services;
 
-import org.example.travelmicroservice.dtos.TravelDTO;
-import org.example.travelmicroservice.dtos.TravelReportDTO;
-import org.example.travelmicroservice.dtos.TravelsCountDTO;
+import org.example.travelmicroservice.client.ScooterDTO;
+import org.example.travelmicroservice.client.StoppingDTO;
+import org.example.travelmicroservice.dtos.*;
 import org.example.travelmicroservice.model.Travel;
 import org.example.travelmicroservice.repositories.PauseRepository;
 import org.example.travelmicroservice.repositories.TravelRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.util.List;
@@ -27,14 +28,36 @@ public class TravelService {
     @Autowired
     private PauseRepository pauseRepository;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     public List<TravelDTO> getTravels() {
         return travelRepository.findAll().stream().map(travel -> modelMapper.map(travel, TravelDTO.class)).collect(Collectors.toList());
     }
 
     public TravelDTO createTravel(TravelDTO travelDTO) {
-        return modelMapper.map(travelRepository.save(modelMapper.map(travelDTO, Travel.class)), TravelDTO.class);
+        Travel travel = modelMapper.map(travelDTO, Travel.class);
+        return modelMapper.map(travelRepository.save(travel), TravelDTO.class);
     }
+
+    public TravelDTO finalizarViaje(Long travelId){
+        Travel travel = this.travelRepository.findById(travelId).get();
+        /*String urlScooter = "http://localhost:8081/scooters/"+travel.getScooterId();
+
+        ScooterDTO scooter= this.restTemplate.getForObject(urlScooter, ScooterDTO.class);
+
+        String urlStopping = "http://localhost:8081/stoppings/"+travel.getStoppingEndStopId();
+        StoppingDTO stopping=this.restTemplate.getForObject(urlStopping, StoppingDTO.class);*/
+
+        String billUrl= "http://localhost:8083/bills/create/"+travelId;
+        BillDTO result=this.restTemplate.postForObject(billUrl, null, BillDTO.class);
+
+        return modelMapper.map(travel, TravelDTO.class);
+
+    }
+
+
 
     public List<TravelsCountDTO> getTravelsByYearAndMinTravels(int year, int minTravels) {
         List<Object[]> results = travelRepository.findScootersByYearAndMinTravels(year, minTravels);

@@ -13,6 +13,7 @@ import java.time.LocalTime;
 public class Pause {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalTime startTime;
     private LocalTime endTime;

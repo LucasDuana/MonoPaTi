@@ -65,12 +65,15 @@ public class TravelController {
         return ResponseEntity.ok(resultTravels);
     }
 
-
     @GetMapping("/usage-report-pause")
     public ResponseEntity<List<TravelReportDTO>> getUsageReport() {
         return ResponseEntity.ok(this.travelService.getUsageReport());
     }
 
+    @GetMapping("/{id}/finalizar")
+    public ResponseEntity<TravelDTO> finalizarViaje(@PathVariable Long id) {
+        return ResponseEntity.ok(this.travelService.finalizarViaje(id));
+    }
 
 
 

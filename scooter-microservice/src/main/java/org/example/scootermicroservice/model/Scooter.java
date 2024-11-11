@@ -21,7 +21,6 @@ public class Scooter {
     @Column(unique = true)
     private String name;
     private String status;
-    private Double totalUsageTime;
     private Double totalDistance;
 
     private Double latitude;

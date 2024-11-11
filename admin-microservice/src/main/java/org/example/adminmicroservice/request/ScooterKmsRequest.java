@@ -5,9 +5,13 @@ import lombok.Data;
 @Data
 public class ScooterKmsRequest {
 
+    private String name;
     private Long scooterId;
-    private String scooterName;
     private Double totalDistance;
-    private String totalUsageTime;
+    private String status;
+    private Double latitude;
+    private Double longitude;
+
+
 
 }

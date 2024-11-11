@@ -1,9 +1,11 @@
 package org.example.usermicroservice.controller;
 
 import jakarta.validation.Valid;
+import org.example.usermicroservice.dtos.AccountDTO;
 import org.example.usermicroservice.dtos.UserDTO;
 import org.example.usermicroservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -43,6 +45,12 @@ public class UserController {
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long userId, @RequestBody @Valid UserDTO userDTO) {
         UserDTO updatedUser = userService.updateUser(userId, userDTO);
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @PutMapping("/{userId}/discount")
+    public ResponseEntity<AccountDTO> chargeUser(@PathVariable Long userId, @RequestParam Double amount) {
+        AccountDTO accountDTO = userService.chargeUser(userId, amount*(-1));
+        return ResponseEntity.ok(accountDTO);
     }
 
     //POST /users/{userId}/accounts/{accountId}

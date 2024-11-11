@@ -24,7 +24,7 @@ public class TariffService {
             TariffDTO tariffDTO = new TariffDTO();
             tariffDTO.setPricePerKm(tariff.getCostPerKm());
             tariffDTO.setPricePerMinute(tariff.getCostPerMinute());
-            tariffDTO.setStartDate(tariff.getStartDate().toString());
+            tariffDTO.setStartDate(tariff.getStartDate());
             return tariffDTO;
         }).collect(Collectors.toList());
     }
@@ -34,7 +34,7 @@ public class TariffService {
             TariffDTO tariffDTO = new TariffDTO();
             tariffDTO.setPricePerKm(tariff.getCostPerKm());
             tariffDTO.setPricePerMinute(tariff.getCostPerMinute());
-            tariffDTO.setStartDate(tariff.getStartDate().toString());
+            tariffDTO.setStartDate(tariff.getStartDate());
             return tariffDTO;
         }).orElse(null);
     }

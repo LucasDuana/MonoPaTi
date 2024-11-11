@@ -6,7 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Entity
 @Data
@@ -19,7 +20,7 @@ public class Tariff {
     private float costPerMinute;
     private float costPerKm;
     private double costPerExtensePause;
-    private Date startDate;
+    private LocalDate startDate;
 
 
 

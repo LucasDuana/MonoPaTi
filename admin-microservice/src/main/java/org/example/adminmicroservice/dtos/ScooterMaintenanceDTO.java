@@ -10,4 +10,5 @@ public class ScooterMaintenanceDTO {
     private Double totalKm;
 
 
+
 }

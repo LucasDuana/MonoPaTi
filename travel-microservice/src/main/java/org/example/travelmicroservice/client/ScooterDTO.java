@@ -1,12 +1,14 @@
-package org.example.scootermicroservice.dtos;
+package org.example.travelmicroservice.client;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.example.scootermicroservice.model.Stopping;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ScooterDTO {
-
     private String name;
     private Long scooterId;
     private Double totalDistance;
@@ -18,4 +20,5 @@ public class ScooterDTO {
 
     public ScooterDTO() {
     }
+
 }

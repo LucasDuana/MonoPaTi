@@ -51,10 +51,19 @@ public class AdminController {
     }
 
 
+    /*@GetMapping("/scooters-with-min-travels")
+    public ResponseEntity<List<TravelsCountDTO>> getScootersWithMinTravelsInYear(
+        @RequestParam int year,
+        @RequestParam int minTravels) {
+        List<TravelsCountDTO> scooters = adminService.getScootersWithMinTravelsInYear(year, minTravels);
+        return ResponseEntity.ok(scooters);
+    }
+    */
+
 
     @GetMapping("/scooter-usage-report")
     public ResponseEntity<?> getScooterUsageReport(@RequestParam("includePauses") boolean esta){
-        return ResponseEntity.ok(this.adminService.getScooterUsageReportWithKm(esta));
+        return ResponseEntity.ok(this.adminService.getScooterUsageReport(esta));
     }
 
     //POST

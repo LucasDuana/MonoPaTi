@@ -21,8 +21,8 @@ public class TravelDTO {
     private LocalTime startTime;
     private LocalTime endTime;
 
-    private Integer stoppingStartStopId;
-    private Integer stoppingEndStopId;
+    private Long stoppingStartStopId;
+    private Long stoppingEndStopId;
 
 
     private int longPauses;

@@ -15,7 +15,7 @@ import java.util.List;
 public class Travel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double kilomenters;
 
@@ -26,8 +26,8 @@ public class Travel {
     private Long scooterId;
     private Integer userId;
 
-    private Integer stoppingStartStopId;
-    private Integer stoppingEndStopId;
+    private Long stoppingStartStopId;
+    private Long stoppingEndStopId;
 
     @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, orphanRemoval = true)
