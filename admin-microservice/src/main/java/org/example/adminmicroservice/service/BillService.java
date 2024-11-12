@@ -84,8 +84,7 @@ public class BillService {
     public BillDTO createBill(Long travelId){
         String urlGetTripAsociated = "http://localhost:8082/travels/"+travelId;
         TravelDTO travelDTO = restTemplate.getForObject(urlGetTripAsociated, TravelDTO.class);
-        System.out.println(travelDTO);
-        System.out.println("Duana trolo");
+        
 
         Tariff actualTariff=this.tariffRepository.findLatestTariff(LocalDate.now()).get();
 
