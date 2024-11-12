@@ -48,43 +48,10 @@ public class BillService {
     }
 
 
-    //create a bill
-    /*public BillDTO createBill(Long travelId) {
-        String url = "http://localhost:8082/travels/" + travelId;
-
-        TravelDTO travelDTO = restTemplate.getForObject(url, TravelDTO.class);
-        Tariff actualTariff = this.tariffRepository.findLatestTariff(LocalDate.now()).get();
-
-        long minutes = calculateDurationInMinutes(travelDTO.getStartTime(), travelDTO.getEndTime());
-
-        double priceTrip = actualTariff.getCostPerKm() * travelDTO.getKilomenters() + actualTariff.getCostPerMinute() * minutes;
-
-        Bill bill = new Bill();
-        bill.setUserId(travelDTO.getUserId());
-        bill.setTripId(travelId);
-        bill.setTotalCost(priceTrip);
-        bill.setDate(LocalDate.now());
-        bill.setTariff(actualTariff);
-
-        //falta actualizar dinero en la/s cuenta/s afectada/s
-        String urlSetDiscountPrice = "http://localhost:8080/users/" + travelDTO.getUserId() + "/discount?amount=" + priceTrip;
-
-        boolean chargeSuccess = restTemplate.getForObject(urlSetDiscountPrice, Boolean.class);
-
-        if (chargeSuccess && chargeSuccess) {
-            //guardo la factura
-            return new BillDTO(billRepository.save(bill).getUserId(), billRepository.save(bill).getTripId(), billRepository.save(bill).getTotalCost(), billRepository.save(bill).getDate(), billRepository.save(bill).getTariff());
-        } else {
-            throw new RuntimeException("No se pudo aplicar el cargo en la cuenta del usuario.");
-        }
-    }*/
-
-
-
     public BillDTO createBill(Long travelId){
         String urlGetTripAsociated = "http://localhost:8082/travels/"+travelId;
         TravelDTO travelDTO = restTemplate.getForObject(urlGetTripAsociated, TravelDTO.class);
-        
+
 
         Tariff actualTariff=this.tariffRepository.findLatestTariff(LocalDate.now()).get();
 
@@ -99,13 +66,13 @@ public class BillService {
         bill.setTotalCost(priceTrip);
         bill.setDate(LocalDate.now());
 
-        // Construye la URL completa para el PUT
+
         String urlDiscountPriceUser = "http://localhost:8080/users/" + travelDTO.getUserId() + "/discount?amount=" + priceTrip;
 
-// Crea un HttpEntity vacío para la solicitud sin cuerpo
+
         HttpEntity<Void> requestEntity = new HttpEntity<>(null);
 
-// Realiza la solicitud PUT
+
         ResponseEntity<AccountDTO> responseEntity = restTemplate.exchange(
                 urlDiscountPriceUser,
                 HttpMethod.PUT,
@@ -113,7 +80,7 @@ public class BillService {
                 AccountDTO.class
         );
 
-// Obtén el objeto AccountDTO de la respuesta
+
         AccountDTO accountDTOResponse = responseEntity.getBody();
 
         return modelMapper.map(billRepository.save(bill), BillDTO.class);

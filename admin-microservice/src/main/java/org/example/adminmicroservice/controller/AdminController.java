@@ -1,6 +1,6 @@
 package org.example.adminmicroservice.controller;
 
-import org.apache.coyote.Response;
+
 import org.example.adminmicroservice.dtos.AdminDTO;
 import org.example.adminmicroservice.model.Admin;
 import org.example.adminmicroservice.service.AdminService;
@@ -23,21 +23,19 @@ public class AdminController {
     @Autowired
     private BillService billService;
 
-    //CRUD operations for Admin entity
 
-    //Get all the admins
     @GetMapping("")
     public ResponseEntity<List<AdminDTO>> getAllAdmins() {
         return ResponseEntity.ok(this.adminService.getAllAdmins());
     }
 
-    //Get admin by id
+
     @GetMapping("/{id}")
     public ResponseEntity<AdminDTO> getAdminById(Long id) {
         return ResponseEntity.ok(this.adminService.getAdminById(id));
     }
 
-    //get scooter status report
+
     @GetMapping("/scooter-status-summary")
     public ResponseEntity<Map<String, Integer>> getScooterStatusSummary() {
         Map<String, Integer> scooterStatusSummary = adminService.getScooterStatusSummary();
@@ -55,7 +53,7 @@ public class AdminController {
     }
     */
 
-    //Get total amount in a year and range month
+
 
     @GetMapping("/total-amount-in-year")
     public ResponseEntity<?> getTotalAmountInYear(@RequestParam("year") int year, @RequestParam("startMonth") int startMonth, @RequestParam("endMonth") int endMonth){
@@ -68,22 +66,19 @@ public class AdminController {
         return ResponseEntity.ok(this.adminService.getScooterUsageReport(esta));
     }
 
-    //POST
-    //Create a new admin
+
     @PostMapping("")
     public ResponseEntity<AdminDTO> createAdmin(@RequestBody Admin admin) {
         return ResponseEntity.ok(this.adminService.createAdmin(admin));
     }
 
-    //UPDATE
-    //Update an admin
+
     @PutMapping("/{id}")
     public ResponseEntity<AdminDTO> updateAdmin(@PathVariable Long id, @RequestBody Admin admin) {
         return ResponseEntity.ok(this.adminService.updateAdmin(id, admin));
     }
 
-    //DELETE
-    //Delete an admin
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {
         this.adminService.deleteAdmin(id);

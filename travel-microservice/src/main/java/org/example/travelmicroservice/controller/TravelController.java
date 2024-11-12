@@ -17,29 +17,28 @@ public class TravelController {
     @Autowired
     private TravelService travelService;
 
-    //CRUD operations for travel
 
-    //GET /travels get all travels
+
     @GetMapping("")
     public ResponseEntity<List<TravelDTO>> getTravels() {
         return ResponseEntity.ok(this.travelService.getTravels());
     }
 
 
-    //POST /travels create a travel
+
     @PostMapping("")
     public ResponseEntity<TravelDTO> createTravel(TravelDTO travelDTO) {
         return ResponseEntity.ok(this.travelService.createTravel(travelDTO));
     }
 
-    //GET /travels/{id} get a travel by id
+
     @GetMapping("/{id}")
     public ResponseEntity<TravelDTO> getTravelById(@PathVariable Long id){
         return ResponseEntity.ok(this.travelService.getTravelById(id));
     }
 
 
-    //PUT /travels/{id} update a travel by id
+
     @PutMapping("/{id}")
     public ResponseEntity<TravelDTO> updateTravel(@PathVariable Long id, @RequestBody TravelDTO travelDTO) {
         return ResponseEntity.ok(this.travelService.updateTravel(id, travelDTO));

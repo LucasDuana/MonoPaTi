@@ -32,23 +32,20 @@ public class AdminService {
     @Autowired
     private RestTemplate restTemplate;
 
-    //get all admins
     public List<AdminDTO> getAllAdmins() {
         return adminRepository.findAll().stream().map(admin -> new AdminDTO(admin.getRol(), admin.getFirstName(),admin.getLastName())).collect(Collectors.toList());
     }
 
-    //get admin by id
     public AdminDTO getAdminById(Long id) {
         return modelMapper.map(adminRepository.findById(id).get(), AdminDTO.class);
     }
 
-    //create an admin
     public AdminDTO createAdmin(Admin admin) {
         Admin savedAdmin = adminRepository.save(admin);
         return modelMapper.map(savedAdmin, AdminDTO.class);
     }
 
-    //update an admin
+
     public AdminDTO updateAdmin(Long id, Admin admin) {
         Admin adminToUpdate = adminRepository.findById(id).get();
         adminToUpdate.setFirstName(admin.getFirstName());
@@ -58,12 +55,12 @@ public class AdminService {
         return modelMapper.map(updatedAdmin, AdminDTO.class);
     }
 
-    //delete an admin
+
     public void deleteAdmin(Long id) {
         adminRepository.deleteById(id);
     }
 
-    //return scooters in operation vs scooters in maintenance
+
     public Map<String, Integer> getScooterStatusSummary() {
 
             String url="http://localhost:8081/scooters";
@@ -107,14 +104,11 @@ public class AdminService {
     }
     }*/
 
-    //Get amount in range months and year
     public Double getTotalAmountInYear(int year, int startMonth,int endMonth) {
         return this.billRepository.getTotalAmountInYear(year, startMonth,endMonth);
     }
 
 
-
-    //get total invoice amount in date range
     public Double getTotalInvoiceAmount(String startDate, String endDate) {
         String url = "http://localhost:8083/invoices/total-amount?startDate=" + startDate + "&endDate=" + endDate;
         return restTemplate.getForObject(url, Double.class);

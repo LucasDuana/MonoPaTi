@@ -44,11 +44,9 @@ public class TravelService {
     public TravelDTO finalizarViaje(Long travelId){
         TravelDTO travel = this.getTravelById(travelId);
 
-        //get scooter associated to the trip
         String urlScooter = "http://localhost:8081/scooters/" + travel.getScooterId();
         ScooterDTO scooter = restTemplate.getForObject(urlScooter, ScooterDTO.class);
 
-        //get stopping associated to the trip
         String urlStopping = "http://localhost:8081/stoppings/" + travel.getStoppingEndStopId();
         StoppingDTO stopping = restTemplate.getForObject(urlStopping, StoppingDTO.class);
 

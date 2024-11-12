@@ -74,7 +74,6 @@ public class ScooterService {
                 .map(TravelDTO::getScooterId)
                 .collect(Collectors.toList());
 
-        // Filtra los scooters en tu base de datos usando los IDs obtenidos
         return scooterRepository.findAllById(scooterIds).stream()
                 .map(scooter -> modelMapper.map(scooter, ScooterDTO.class))
                 .collect(Collectors.toList());
