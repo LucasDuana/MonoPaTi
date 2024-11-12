@@ -43,12 +43,7 @@ public class AdminController {
         Map<String, Integer> scooterStatusSummary = adminService.getScooterStatusSummary();
         return ResponseEntity.ok(scooterStatusSummary);
     }
-
-    /*//Get total invoice amount in date range
-    @GetMapping("/total-invoice-amount")
-    public ResponseEntity<?> getTotalInvoiceAmount(@RequestParam("year") int year,@RequestParam("startMonth") int startMonth, @RequestParam("endMonth") int endMonth){
-        return ResponseEntity.ok(this.billService.getBillsInRange(year,startMonth, endMonth));
-    }*/
+    
 
 
     /*@GetMapping("/scooters-with-min-travels")
@@ -62,10 +57,10 @@ public class AdminController {
 
     //Get total amount in a year and range month
 
-    /*@GetMapping("/total-amount-in-year")
+    @GetMapping("/total-amount-in-year")
     public ResponseEntity<?> getTotalAmountInYear(@RequestParam("year") int year, @RequestParam("startMonth") int startMonth, @RequestParam("endMonth") int endMonth){
-        return ResponseEntity.ok(this.billService.getTotalAmountInYear(year, startMonth, endMonth));
-    }*/
+        return ResponseEntity.ok(this.adminService.getTotalAmountInYear(year, startMonth, endMonth));
+    }
 
 
     @GetMapping("/scooter-usage-report")

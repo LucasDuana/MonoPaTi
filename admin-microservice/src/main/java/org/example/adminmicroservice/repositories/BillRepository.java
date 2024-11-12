@@ -12,15 +12,9 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
-    //Get bills in range
-    @Query("SELECT b FROM Bill b WHERE YEAR(b.date) = :year AND MONTH(b.date) >= :startMonth AND MONTH(b.date) <= :endMonth")
-    public List<Bill> getBillsInRange(@Param("year")int year,@Param("startMonth") int startMonth,@Param("endMonth") int endMonth);
-
-    @Query("SELECT SUM(b.totalCost) FROM Bill b WHERE YEAR(b.date) = :year AND MONTH(b.date) IN :months")
-    Double getTotalAmountInYear(int year, List<Integer> months);
-
-
     @Query("SELECT SUM(b.totalCost) FROM Bill b WHERE YEAR(b.date) = :year AND MONTH(b.date) BETWEEN :startMonth AND :endMonth")
-        Double getTotalBilledInRange(@Param("year") int year, @Param("startMonth") int startMonth, @Param("endMonth") int endMonth);
+    Double getTotalAmountInYear(@Param("year") int year,@Param("startMonth") int startMonth,@Param("endMonth") int endMonth);
+
+
 
 }

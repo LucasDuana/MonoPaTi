@@ -35,10 +35,7 @@ public class BillService {
     @Autowired
     private ModelMapper modelMapper;
 
-    //Get bills in range
-    public List<Bill> getBillsInRange(int year, int startMonth, int endMonth) {
-        return billRepository.getBillsInRange(year,startMonth, endMonth);
-    }
+
 
     //get all bills
     public List<BillDTO> getAllBills() {
@@ -50,9 +47,7 @@ public class BillService {
         return duration.toMinutes();
     }
 
-    public Double getTotalBilledInRange(int year, int startMonth, int endMonth) {
-        return billRepository.getTotalBilledInRange(year, startMonth, endMonth);
-    }
+
     //create a bill
     /*public BillDTO createBill(Long travelId) {
         String url = "http://localhost:8082/travels/" + travelId;

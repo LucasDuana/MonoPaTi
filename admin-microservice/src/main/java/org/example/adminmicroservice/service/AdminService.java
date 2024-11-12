@@ -108,8 +108,8 @@ public class AdminService {
     }*/
 
     //Get amount in range months and year
-    public Double getTotalAmountInYear(int year, List<Integer> meses) {
-        return this.billRepository.getTotalAmountInYear(year, meses);
+    public Double getTotalAmountInYear(int year, int startMonth,int endMonth) {
+        return this.billRepository.getTotalAmountInYear(year, startMonth,endMonth);
     }
 
 
