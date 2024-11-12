@@ -35,7 +35,6 @@ public class Travel {
 
 
     public Travel() {
-
     }
 
 

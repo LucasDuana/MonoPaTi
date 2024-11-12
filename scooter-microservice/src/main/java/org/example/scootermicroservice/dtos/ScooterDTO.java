@@ -16,6 +16,8 @@ public class ScooterDTO {
 
     private StoppingDTO stopping;
 
+
+
     public ScooterDTO() {
     }
 }

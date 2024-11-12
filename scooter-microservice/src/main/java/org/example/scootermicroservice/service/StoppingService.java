@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,6 +71,33 @@ public class StoppingService {
             throw new IllegalArgumentException("No se encontro la parada con el id " + id);
         }
         this.stoppingRepository.deleteById(id);
+    }
+
+    public StoppingDTO findStoppingsWithScooters(int minScooters,Double latitude,Double longitude){
+        List<Stopping> stoppings=this.stoppingRepository.findAllWithAvailableScooters(minScooters);
+        Stopping nearby=null;
+        for(Stopping stopping:stoppings){
+            if(nearby==null){
+                nearby=stopping;
+            }else{
+                if(calculateDistance(latitude,longitude,stopping.getLatitude(),stopping.getLongitude())<calculateDistance(latitude,longitude,nearby.getLatitude(),nearby.getLongitude())){
+                    nearby=stopping;
+                }
+            }
+        }
+        return this.modelMapper.map(nearby, StoppingDTO.class);
+    }
+
+    // Método para calcular la distancia usando la fórmula de Haversine
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        double R = 6371; // Radio de la Tierra en km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // Distancia en km
     }
 
 }

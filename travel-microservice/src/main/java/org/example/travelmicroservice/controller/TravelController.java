@@ -18,6 +18,7 @@ public class TravelController {
     private TravelService travelService;
 
     //CRUD operations for travel
+
     //GET /travels get all travels
     @GetMapping("")
     public ResponseEntity<List<TravelDTO>> getTravels() {
