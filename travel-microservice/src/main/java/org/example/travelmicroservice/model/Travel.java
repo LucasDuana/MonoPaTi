@@ -1,5 +1,6 @@
 package org.example.travelmicroservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Travel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double kilomenters;
 
@@ -22,12 +23,13 @@ public class Travel {
     private LocalTime startTime;
     private LocalTime endTime;
 
-    private Integer scooterId;
+    private Long scooterId;
     private Integer userId;
 
-    private Integer stoppingStartStopId;
-    private Integer stoppingEndStopId;
+    private Long stoppingStartStopId;
+    private Long stoppingEndStopId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pause> pauses;
 

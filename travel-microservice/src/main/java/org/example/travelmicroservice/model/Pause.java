@@ -1,5 +1,6 @@
 package org.example.travelmicroservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.time.LocalTime;
 public class Pause {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -19,7 +21,7 @@ public class Pause {
     @ManyToOne
     @JoinColumn(name = "travel_id", nullable = false)
     private Travel travel;
-
+    @JsonIgnore
     public Pause() {
     }
 

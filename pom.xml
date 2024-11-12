@@ -18,6 +18,7 @@
         <module>user-microservice</module>
         <module>scooter-microservice</module>
         <module>travel-microservice</module>
+        <module>admin-microservice</module>
     </modules>
 
     <dependencies>

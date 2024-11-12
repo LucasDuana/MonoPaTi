@@ -8,9 +8,14 @@ import org.example.scootermicroservice.model.Stopping;
 public class ScooterDTO {
 
     private String name;
-    private Double totalUsageTime;
+    private Long scooterId;
     private Double totalDistance;
     private String status;
+    private Double latitude;
+    private Double longitude;
+
+    private StoppingDTO stopping;
+
 
 
     public ScooterDTO() {

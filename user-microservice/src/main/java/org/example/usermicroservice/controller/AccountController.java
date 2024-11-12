@@ -38,7 +38,6 @@ public class AccountController {
         return accountService.setAccountDisabled(id);
     }
 
-
     //GET /{id}
     @GetMapping("/{id}")
     public AccountDTO getAccountById(@PathVariable Long id) {

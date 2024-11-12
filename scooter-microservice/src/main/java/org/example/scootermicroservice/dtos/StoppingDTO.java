@@ -1,5 +1,6 @@
 package org.example.scootermicroservice.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.example.scootermicroservice.model.Scooter;
 
@@ -13,6 +14,7 @@ public class StoppingDTO {
     private Double latitude;
     private Double longitude;
 
+    @JsonIgnore
     private List<ScooterDTO> scooters;
 
     public StoppingDTO() {

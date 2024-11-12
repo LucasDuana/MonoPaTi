@@ -32,3 +32,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: travel
+
+  mysql-admin:
+    image: mysql:latest
+    ports:
+      - "3310:3306"
+    volumes:
+      - ./docker/volume_mysql_admin:/var/lib/mysql
+    container_name: mysql-admin
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: admin
+

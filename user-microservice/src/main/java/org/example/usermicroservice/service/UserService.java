@@ -1,7 +1,9 @@
 package org.example.usermicroservice.service;
 
 
+import org.example.usermicroservice.dtos.AccountDTO;
 import org.example.usermicroservice.dtos.UserDTO;
+import org.example.usermicroservice.model.Account;
 import org.example.usermicroservice.repositories.AccountRepository;
 import org.example.usermicroservice.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -17,7 +19,6 @@ public class UserService {
 
     @Autowired
     private ModelMapper modelMapper;
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -25,6 +26,24 @@ public class UserService {
 
     public List<UserDTO> getUsers(){
         return this.userRepository.findAll().stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
+    }
+
+    public AccountDTO chargeUser(Long id,Double amount){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Buscar la primera cuenta con saldo suficiente
+        Account accountToDiscount = user.getAccounts().stream()
+                .filter(account -> account.getBalance() >= amount)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No hay suficiente saldo en ninguna cuenta para realizar el descuento."));
+
+        // Realizar el descuento
+        accountToDiscount.setBalance(accountToDiscount.getBalance() + amount);
+        accountRepository.save(accountToDiscount); // Guardar la cuenta actualizada
+
+        // Retornar el DTO de la cuenta con el descuento aplicado
+        return modelMapper.map(accountToDiscount, AccountDTO.class);
     }
 
     public UserDTO getUserById(Long id){

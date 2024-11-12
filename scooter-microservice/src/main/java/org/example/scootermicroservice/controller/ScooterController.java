@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/scooters")
 public class ScooterController {
+
     @Autowired
     private ScooterService scooterService;
 
@@ -21,14 +22,46 @@ public class ScooterController {
         return ResponseEntity.ok(scooterService.getScooters(status));
     }
 
+
+
+    //Get scooters with more than X travels in a year
+    @GetMapping("/filter-by-travels")
+    public ResponseEntity<List<ScooterDTO>> getScootersWithMoreThanXTravelsInYear(
+            @RequestParam int travels,
+            @RequestParam int year) {
+        return ResponseEntity.ok(scooterService.getScootersWithMoreThanXTravelsInYear(travels, year));
+    }
+
     @GetMapping("/kilometers-report")
     public ResponseEntity<?> getScooterOrderByDistance(){
         return ResponseEntity.ok(scooterService.getScootersOrderByDistance());
     }
 
+    @GetMapping("/total-timeUsage")
+    public ResponseEntity<?> getTotalTimeUsage(){
+        return ResponseEntity.ok(scooterService.getScooterUsageReport());
+    }
+
+    @GetMapping("/total-timeUsage-withPauses")
+    public ResponseEntity<?> getTotalTimeUsageWithPauses(){
+        return ResponseEntity.ok(scooterService.getScooterUsageReportWithPauses());
+    }
+
     @GetMapping("/{id}")//works
     public ResponseEntity<ScooterDTO> getScooterById(@PathVariable Long id) {
         return ResponseEntity.ok(scooterService.getScooterById(id));
+    }
+
+    //Get Scooters in use
+    @GetMapping("/in-use")
+    public ResponseEntity<List<ScooterDTO>> getScootersInUse() {
+        return ResponseEntity.ok(scooterService.getScootersInUse());
+    }
+
+    //Get Scooters in maintenance
+    @GetMapping("/in-maintenance")
+    public ResponseEntity<List<ScooterDTO>> getScootersInMaintenance() {
+        return ResponseEntity.ok(scooterService.getScootersInMaintenance());
     }
 
     //delete scooter by id

@@ -18,9 +18,9 @@ public class Scooter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scooterId;
 
+    @Column(unique = true)
     private String name;
     private String status;
-    private Double totalUsageTime;
     private Double totalDistance;
 
     private Double latitude;

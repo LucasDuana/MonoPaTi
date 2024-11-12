@@ -27,6 +27,13 @@ public class AccountService {
         return modelMapper.map(accountRepository.findById(id).get(), AccountDTO.class);
     }
 
+    public AccountDTO chargeAccount(Long id, Double amount) {
+        Account account = accountRepository.findById(id).get();
+        account.setBalance(account.getBalance() - amount);
+        return modelMapper.map(accountRepository.save(account), AccountDTO.class);
+    }
+
+
     public AccountDTO setAccountEnabled(Long id) {
         Account account = accountRepository.findById(id).get();
         account.setStatus("enabled");
