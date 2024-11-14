@@ -107,6 +107,9 @@ Este servicio se encarga de la gestion de usuarios y cuentas,donde cada usuario 
 Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, tambien se gestionan las paradas donde estos puede quedarse.
 
 ### Endpoints
+
+
+
 #### Scooters
 
 #### 1. Obtener scooter
@@ -131,6 +134,8 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
         "status": "Operativo",
         "latitude": 0,
         "longitude": 0
+        "stopping":
+                    {stoppingId: 7}
       }
   ```
 
@@ -378,14 +383,117 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 
 
 ## Travel Service
+
 ### Descripcion
 Este servicio gestiona y supervisa los trayectos realizados en scooters dentro de un sistema de transporte
--`GET /TRAVELS`: Retorna una lista de todos los viajes
--`POST /Travel`: Crea un nuevo Travel
--`POST /FinalizarTravel`: Finaliza el viaje especificado si el scooter está en el punto de parada final.
--`GET /Travel{id}`: Obtiene viaje por id
--`PUT /Travel{id}`: Actualiza un viaje por su identificador
--`DELETE /Travel/{id}`: Elimina un viaje por su id
+
+
+### Endpoints
+
+#### Travels
+
+#### 1. Obtener viajes
+- **URL**: `/travels`
+- **Método**: `GET`
+
+  
+
+#### 2. Obtener Viaje por ID    
+- **URL**: `/travels/{id}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{id}` Long: id de viaje
+
+  
+#### 3. Crear Viaje
+- **URL**: `/travels`
+- **Método**: `POST`
+- **Request Body**:
+    ```json
+    {
+      "userId": "7",
+      "scooterId" 34,
+      "date": "20-05-2024",
+      "startTime": 2024-05-2024T13:45:20.123,
+      "endTime": 2024-05-2024T15:45:20.123,
+    }
+    ```
+
+#### 4. Actualizar Viaje
+- **URL**: `/travels/{id}`
+- **Método**: `PUT`
+- **Path Variables**:
+    - `{id}` Long:id de viaje
+- **Request Body**:
+    ```json
+    {
+      "date": "26-05-2024",
+      "startTime": 2024-05-2024T13:45:20.123,
+      "endTime": 2024-05-2024T15:45:20.123,
+    }
+    ```
+    
+#### 5. Borrar Viaje
+- **URL**: `/travels/{id}`
+- **Método**: `DELETE`
+- **Path Variables**:
+    - `{id}` Long:id de viaje
+
+#### 6. Finalizar Viaje
+- **URL**: `travels/{id}/finalizar`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{id}` Long:id de viaje
+
+
+ 
+#### Pauses
+
+
+#### 1. Obtener Pausas
+- **URL**: `/pauses`
+- **Método**: `GET`
+
+  
+
+#### 2. Obtener Pausa por ID    
+- **URL**: `/pauses/{id}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{id}` Long: id de pausa
+
+  
+#### 3. Crear Pausa
+- **URL**: `/pauses`
+- **Método**: `POST`
+- **Request Body**:
+    ```json
+    {
+      "startTime": 2024-05-2024T13:45:20.123,
+      "endTime": 2024-05-2024T14:00:20.123,
+      "travel": {travelId: 3}
+    }
+    ```
+
+#### 4. Actualizar Pausas
+- **URL**: `/pauses/{id}`
+- **Método**: `PUT`
+- **Path Variables**:
+    - `{id}` Long:id de pausa
+- **Request Body**:
+    ```json
+    {
+      "startTime": 2024-05-2024T13:45:20.123,
+      "endTime": 2024-05-2024T15:45:20.123,
+    }
+    ```
+    
+#### 5. Borrar Pausa
+- **URL**: `/pauses/{id}`
+- **Método**: `DELETE`
+- **Path Variables**:
+    - `{id}` Long:id de pausa
+
 
 ## Admin Service
 ### Descripcion
