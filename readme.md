@@ -353,8 +353,8 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 - **Request Body**:
     ```json
     {
-     "name": "un nombre en String",
-     "address": "una direccion en String",
+     "name": "Parada006",
+     "address": "Dinamarca 2045",
      "latitude": 0,
      "longitude": 0,
     }
@@ -369,8 +369,8 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 - **Request Body**:
     ```json
     {
-      "name": "un nombre en String",
-      "address": "una direccion en String",
+      "name": "Parada023",
+      "address": "Cochabamba 569",
       "latitude": 100,
       "longitude": 100,
     }
@@ -411,11 +411,11 @@ Este servicio gestiona y supervisa los trayectos realizados en scooters dentro d
 - **Request Body**:
     ```json
     {
-      "userId": "7",
+      "userId": 7,
       "scooterId" 34,
       "date": "20-05-2024",
-      "startTime": 2024-05-2024T13:45:20.123,
-      "endTime": 2024-05-2024T15:45:20.123,
+      "startTime": "2024-05-2024T13:45:20.123",
+      "endTime": "2024-05-2024T15:45:20.123",
     }
     ```
 
@@ -428,8 +428,8 @@ Este servicio gestiona y supervisa los trayectos realizados en scooters dentro d
     ```json
     {
       "date": "26-05-2024",
-      "startTime": 2024-05-2024T13:45:20.123,
-      "endTime": 2024-05-2024T15:45:20.123,
+      "startTime": "2024-05-2024T13:45:20.123",
+      "endTime": "2024-05-2024T15:45:20.123",
     }
     ```
     
@@ -469,9 +469,9 @@ Este servicio gestiona y supervisa los trayectos realizados en scooters dentro d
 - **Request Body**:
     ```json
     {
-      "startTime": 2024-05-2024T13:45:20.123,
-      "endTime": 2024-05-2024T14:00:20.123,
-      "travel": {travelId: 3}
+      "startTime": "2024-05-2024T13:45:20.123",
+      "endTime": "2024-05-2024T14:00:20.123",
+      "travel": {"travelId": 3}
     }
     ```
 
@@ -483,8 +483,8 @@ Este servicio gestiona y supervisa los trayectos realizados en scooters dentro d
 - **Request Body**:
     ```json
     {
-      "startTime": 2024-05-2024T13:45:20.123,
-      "endTime": 2024-05-2024T15:45:20.123,
+      "startTime": "2024-05-2024T13:45:20.123",
+      "endTime": "2024-05-2024T15:45:20.123",
     }
     ```
     
