@@ -135,7 +135,7 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
         "latitude": 0,
         "longitude": 0
         "stopping":
-                    {stoppingId: 7}
+                    {"stoppingId": 7}
       }
   ```
 
