@@ -110,7 +110,7 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 #### Scooters
 
 #### 1. Obtener scooter
-- **URL**: `/scooter`
+- **URL**: `/scooters`
 - **Método**: `GET`
 
 #### 2. Obtener Scooter por ID
@@ -119,6 +119,8 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 - **Path Variables**:
   - `{id}` Long: id de scooter
 
+
+#### AGREGA UN MONOPATIN
 #### 3. Crear scooter
 - **URL**: `/scooter`
 - **Método**: `POST`
@@ -126,32 +128,254 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
     ```json
       {
         "name":"ScooterB",
-        "status": "Opertativo",
-        "latitude": 
-        "longitude": ;
+        "status": "Operativo",
+        "latitude": 0,
+        "longitude": 0
       }
   ```
 
+#### 4. Crear scooter (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters{id}`
+- **Método**: `PUT`
+- **Request Body**:
+    ```json
+      {
+        "name":"ScooterB",
+        "status": "Mantanimiento",
+        "latitude": 100,
+        "longitude": 5
+      }
+  ```
+- **Path Variables**:
+  - `{id}` Long: id de scooter
+ 
+#### 5. Borrar usuario
+- **URL**: `/scooters/{id}`
+- **Método**: `DELETE`
+- **Path Variables**:
+    - `{id}` Long:id de scooter
+ 
+#### 6. Obtener Todos los scooter ordenados de manera decreciente por kms recorridos (FUNCIONALIDA DE ENUNCIADO)
+- **URL**: `/scooters/kilometers-report`
+- **Método**: `GET`
+- **Response Body**: 
+    ```json
+        [
+          {
+            "name":"ScooterB",
+            "status": "Operativo",
+            "totalDistance": 10000
+            "latitude": 0,
+            "longitude": 0
+          } ,
+           {
+            "name":"ScooterH",
+            "status": "Operativo",
+            "totalDistance": 8000
+            "latitude": 0,
+            "longitude": 0
+          },
+           {
+            "name":"Scooterc",
+            "status": "Operativo",
+            "totalDistance": 1000
+            "latitude": 0,
+            "longitude": 0
+          }      
+        ]
+     ```
 
-- `POST /scooters` : Crea un nuevo scooter
-- `PUT /scooters/{id}` : Actualiza un scooter por su id
-- `DELETE /scooters/{id}` : Elimina un scooter por su id
-- `GET /scooters/kilometers-report` : Obtiene todos los scooter ordenados de manera decreciente por kms recorridos
-- `GET /scooters/filter-by-travels` : Obtiene scooter con una cantidad determinada de viajes en un año especifico
-- `GET /scooters/total-timeUsage` : Obtiene los scooter con su tiempo total de uso sin pausas
-- `GET /scooters/total-timeUsage-withPauses` : Obtiene los scooter con su tiempo total de uso con pausas
-- `GET /scooters/in-use` : Obtiene los scooter en uso
-- `GET /scooters/in-maintenance` : Obtiene los scooter en mantenimiento
-- `PUT /scooters/{id}/maintenance` : Pone un scooter en mantenimiento mediante su id
-- `PATCH /scooters/{id}/location` : Actualiza la localizacion de un scooter mediante su id
-- `PATCH /scooters/{idScooter}/stoppings/{idStopping}` : Registra un scooter con su id una parada usando tambien el id de esta
+#### 7. Obtener una cantidad determinada de scooter en un año determinado (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/filter-by-travels`
+- **Método**: `GET`
+- **Request Body**: 
+   ```json
+        
+          {
+            "Travels": Cantidad de viajes en integer
+            "year": Un año en integer
+          } 
+     ```
+
+#### 8. Obtener Un Listado con el tiempo total de uso de los scooters (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/total-timeUsage`
+- **Método**: `GET`
+- **Response Body**: 
+    ```json
+        [
+          {
+            "scooterName": "ScooterZ";
+            "effectiveUsageTime": "2 HORAS Y 54 MINUTOS";
+            "scooterId": 5;
+          } ,
+           {
+            "scooterName": "ScooterB";
+            "effectiveUsageTime": "7 horas y 0 minutos";
+            "scooterId": 9;
+          } ,,
+         {
+            "scooterName": "ScooterJ";
+            "effectiveUsageTime": "1 HORAS Y 14 MINUTOS";
+            "scooterId": 51;
+          } ,   
+        ]
+     ```
+
+#### 9. Obtener Un Listado con el tiempo total de uso de los scooters con pausas (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/total-timeUsage-withPauses`
+- **Método**: `GET`
+- **Response Body**: 
+    ```json
+        [
+          {
+            "scooterName": "ScooterZ";
+            "effectiveUsageTime": "1 HORAS Y 54 MINUTOS";
+            "scooterId": 5;
+          } ,
+           {
+            "cooterName": "ScooterB";
+            "effectiveUsageTime": "5 horas y 3 minutos";
+            "scooterId": 9;
+          } ,,
+         {
+            "scooterName": "ScooterJ";
+            "effectiveUsageTime": "0 HORAS Y 33 MINUTOS";
+            "scooterId": 51;
+          } ,   
+        ]
+      ```
+
+#### 10. Obtener Todos los scooter cuyo status es operativo (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/in-use`
+- **Método**: `GET`
+- **Response Body**: 
+    ```json
+        [
+          {
+            "name":"ScooterB",
+            "status": "Operativo",
+            "totalDistance": 10000
+            "status"
+            "latitude": 0,
+            "longitude": 0
+          } ,
+           {
+            "name":"ScooterH",
+            "status": "Operativo",
+            "totalDistance": 8000
+            "latitude": 0,
+            "longitude": 0
+          },
+           {
+            "name":"Scooterc",
+            "status": "Operativo",
+            "totalDistance": 1000
+            "latitude": 0,
+            "longitude": 0
+          }      
+        ]
+     ```
+
+#### 11. Obtener Todos los scooter cuyo status es en mantenimiento (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/in-maintenance`
+- **Método**: `GET`
+- **Response Body**: 
+    ```json
+        [
+          {
+            "name":"ScooterB",
+            "status": "Mantenimiento",
+            "totalDistance": 10000
+            "status"
+            "latitude": 0,
+            "longitude": 0
+          } ,
+           {
+            "name":"ScooterJ",
+            "status": "Mantenimiento",
+            "totalDistance": 8000
+            "latitude": 0,
+            "longitude": 0
+          },
+           {
+            "name":"ScooterP",
+            "status": "Mantenimiento",
+            "totalDistance": 1000
+            "latitude": 0,
+            "longitude": 0
+          }      
+        ]
+     ```
+
+
+#### 12. Finaliza el mantenimiento de un scooter (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/{id}/maintenance`
+- **Método**: `PATCH`
+- **Path Variables**:
+    - `{id}` Long:id de scooter
+ 
+#### 13. Actualiza la localizacion de un scoooter mediante su id (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/{id}/location`
+- **Método**: `PATCH`
+- **Path Variables**:
+    - `{id}` Long:id de scooter
+
+#### 14. Registra un scooter mediante su id en una parada usando el id de esta tambien (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/{idScooter}/stoppings/{idStopping}`
+- **Método**: `PATCH`
+- **Path Variables**:
+    - `{idScooter}` Long:id de scooter
+    - `{idStopping}` Long:id de stopping             
+    
+
+
 
 #### Stoppings
-- `GET /stoppings` : Obtiene todas las paradas
-- `POST /stoppings` : Crea una nueva parada
-- `GET /stoppings/{id}` : Obtiene una parada por su id
-- `PUT /stoppings/{id}` : Actualiza una parada por su id
-- `DELETE /stoppings/{id}` : Elimina una parada por su id
+
+
+#### 1. Obtener Paradas
+- **URL**: `/stoppings`
+- **Método**: `GET`
+
+#### 2. Obtener Parada por ID    
+- **URL**: `/stoppings/{id}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{id}` Long: id de parada
+#### 3. Crear Parada
+- **URL**: `/stoppings`
+- **Método**: `POST`
+- **Request Body**:
+    ```json
+    {
+     "name": un nombre en String,
+     "address": "una direccion en String,
+     "latitude": una latitud en double,
+     "longitude": una longitud en double,
+    }
+    ```
+
+
+#### 4. Actualizar Parada
+- **URL**: `/stoppings/{id}`
+- **Método**: `PUT`
+- **Path Variables**:
+    - `{id}` Long:id de parada
+- **Request Body**:
+    ```json
+    {
+      "name": un nombre en String,
+      "address": "una direccion en String,
+      "latitude": una latitud en double,
+      "longitude": una longitud en double,
+    }
+    ```
+#### 5. Borrar Parada
+- **URL**: `/stoppings/{id}`
+- **Método**: `DELETE`
+- **Path Variables**:
+    - `{id}` Long:id de parada
+
 
 ## Travel Service
 ### Descripcion
