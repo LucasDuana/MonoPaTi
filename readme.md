@@ -228,22 +228,22 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
     ```json
         [
           {
-            "scooterName": "ScooterZ";
-            "effectiveUsageTime": "1 HORAS Y 54 MINUTOS";
-            "scooterId": 5;
+            "scooterName": "ScooterZ"
+            "effectiveUsageTime": "1 HORAS Y 54 MINUTOS"
+            "scooterId": 5
           } ,
            {
-            "cooterName": "ScooterB";
-            "effectiveUsageTime": "5 horas y 3 minutos";
-            "scooterId": 9;
+            "cooterName": "ScooterB"
+            "effectiveUsageTime": "5 horas y 3 minutos"
+            "scooterId": 9
           } ,,
          {
-            "scooterName": "ScooterJ";
-            "effectiveUsageTime": "0 HORAS Y 33 MINUTOS";
-            "scooterId": 51;
+            "scooterName": "ScooterJ"
+            "effectiveUsageTime": "0 HORAS Y 33 MINUTOS"
+            "scooterId": 51
           } ,   
         ]
-      ```
+    ```
 
 #### 10. Obtener Todos los scooter cuyo status es operativo (FUNCIONALIDAD DE ENUNCIADO)
 - **URL**: `/scooters/in-use`
