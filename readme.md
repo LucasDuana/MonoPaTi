@@ -192,8 +192,8 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
    ```json
         
           {
-            "Travels": Cantidad de viajes en integer
-            "year": Un año en integer
+            "Travels": "Cantidad de viajes en integer",
+            "year": 2024,
           } 
      ```
 
@@ -204,19 +204,19 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
     ```json
         [
           {
-            "scooterName": "ScooterZ";
-            "effectiveUsageTime": "2 HORAS Y 54 MINUTOS";
-            "scooterId": 5;
+            "scooterName": "ScooterZ",
+            "effectiveUsageTime": "2 HORAS Y 54 MINUTOS",
+            "scooterId": 5,
           } ,
            {
-            "scooterName": "ScooterB";
-            "effectiveUsageTime": "7 horas y 0 minutos";
-            "scooterId": 9;
-          } ,,
+            "scooterName": "ScooterB",
+            "effectiveUsageTime": "7 horas y 0 minutos",
+            "scooterId": 9,
+          } ,
          {
-            "scooterName": "ScooterJ";
-            "effectiveUsageTime": "1 HORAS Y 14 MINUTOS";
-            "scooterId": 51;
+            "scooterName": "ScooterJ",
+            "effectiveUsageTime": "1 HORAS Y 14 MINUTOS",
+            "scooterId": 51,
           } ,   
         ]
      ```
@@ -348,10 +348,10 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 - **Request Body**:
     ```json
     {
-     "name": un nombre en String,
-     "address": "una direccion en String,
-     "latitude": una latitud en double,
-     "longitude": una longitud en double,
+     "name": "un nombre en String",
+     "address": "una direccion en String",
+     "latitude": 0,
+     "longitude": 0,
     }
     ```
 
@@ -364,10 +364,10 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 - **Request Body**:
     ```json
     {
-      "name": un nombre en String,
-      "address": "una direccion en String,
-      "latitude": una latitud en double,
-      "longitude": una longitud en double,
+      "name": "un nombre en String",
+      "address": "una direccion en String",
+      "latitude": 100,
+      "longitude": 100,
     }
     ```
 #### 5. Borrar Parada
