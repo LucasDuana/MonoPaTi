@@ -523,9 +523,9 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
 - **Request Body**:
     ```json
     {
-    "name": "Lucas;
-    "lastName": "Ortiz";
-    "rol": "admin-general";
+    "name": "Lucas,
+    "lastName": "Ortiz",
+    "rol": "admin-general",
     }
     ```
 
@@ -537,9 +537,9 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
 - **Request Body**:
     ```json
     {
-    "name": "Lucas;
-    "lastName": "Ortiz";
-    "rol": "admin-junior";
+    "name": "Lucas,
+    "lastName": "Ortiz",
+    "rol": "admin-junior",
     }
     ```
     
@@ -557,9 +557,9 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
 - **Response Body**: 
     ```json
           {
-             "scooterName": "ScooterA";
-             "totalEffectiveUsage": "1 hora y 25 minutos";
-             "totalKm": 2800.00;
+             "scooterName": "ScooterA",
+             "totalEffectiveUsage": "1 hora y 25 minutos",
+             "totalKm": 2800.00,
           } 
      ```
 
