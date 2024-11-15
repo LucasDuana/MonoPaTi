@@ -160,7 +160,7 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 - **Path Variables**:
     - `{id}` Long:id de scooter
  
-#### 6. Obtener Todos los scooter ordenados de manera decreciente por kms recorridos (FUNCIONALIDA DE ENUNCIADO)
+#### 6. Obtener Todos los scooter ordenados de manera decreciente por kms recorridos (FUNCIONALIDAD DE ENUNCIADO)
 - **URL**: `/scooters/kilometers-report`
 - **Método**: `GET`
 - **Response Body**: 
@@ -493,16 +493,87 @@ Este servicio gestiona y supervisa los trayectos realizados en scooters dentro d
 - **Método**: `DELETE`
 - **Path Variables**:
     - `{id}` Long:id de pausa
-
+      
 
 ## Admin Service
 ### Descripcion
 Este servicio gestiona las operaciones relacionadas con los administradores y el reporte de uso de scooters
-- `GET /Admins`: Obtiene una lista de todos los admins
-- `GET /Admin{id}`: Obtiene un admin por su identificador
-- `POST /Admin`: Crea un admin nuevo
-- `PUT /Admin{id}`: Actualiza un admin por su id
-- `DELETE /Admin{id}`: Elimina un admin mediante su id
-- `GET /total-amount-in-year`: Obtiene en cierto año y una cantidad desde un mes deseado hacia su fin de mes enviado por parametro
-- `GET /total-invoice-amount`: Obtiene el total y muestra el monto total de todas las de facturas dentro de un rango
-- `GET /scooter-usage-report`: Genera un informe de uso de scooters, incluyendo la duración total de uso efectivo y la distancia total recorrida por cada scooter
+
+### Endpoints
+
+#### admin
+
+
+#### 1. Obtener Admin
+- **URL**: `/admins`
+- **Método**: `GET`
+
+  
+
+#### 2. Obtener Admin por ID    
+- **URL**: `/admins/{id}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{id}` Long: id de admin
+
+  
+#### 3. Crear Admin
+- **URL**: `/admins`
+- **Método**: `POST`
+- **Request Body**:
+    ```json
+    {
+    "name": "Lucas;
+    "lastName: "Ortiz";
+    "rol": "admin-general";
+    }
+    ```
+
+#### 4. Actualizar Admin
+- **URL**: `/admins/{id}`
+- **Método**: `PUT`
+- **Path Variables**:
+    - `{id}` Long:id de admin
+- **Request Body**:
+    ```json
+    {
+    "name": "Lucas;
+    "lastName: "Ortiz";
+    "rol": "admin-junior";
+    }
+    ```
+    
+#### 5. Borrar Admin
+- **URL**: `/admins/{id}`
+- **Método**: `DELETE`
+- **Path Variables**:
+    - `{id}` Long:id de admin
+
+#### 6. Obtener informe de uso en tiempo (con o sin pausas) y distancia de los scooters (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/admins/scooter-usage-report?includePauses={includePauses}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{includePauses}` boolean: includePauses
+- **Response Body**: 
+    ```json
+          {
+             "scooterName": "ScooterA";
+             totalEffectiveUsage: "1 hora y 25 minutos";
+             totalKm: 2800.00;
+          } 
+     ```
+
+ #### 7.  Obtener el total y muestra el monto total de todas las de facturas dentro de un rango en un año entre un mes inicial y un mes final (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `admins/total-invoice-amount?year={year}&starMonth={startMonth}&endMonth={endMonth}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{year}` : int
+    - `{starMonth}` : int
+    - `{endMonth}` : int
+- **Response Body**: 
+    ```json
+          {
+            1250000.00
+          } 
+     ```   
+
