@@ -332,7 +332,12 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
     - `{idScooter}` Long:id de scooter
     - `{idStopping}` Long:id de stopping             
     
-
+#### 15. devuelve un listado de Scooter en un año determinado que tengan  mas cantidad viajes que un valor determinado (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/scooters/filter-by-travels?travels={travels}&year={year}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{travels}` int: cantidad de viajes
+    - `{year}` int: año    
 
 
 #### Stoppings
@@ -380,6 +385,14 @@ Este servicio se encarga de gestiona el mantenimiento y el uso de los scooters, 
 - **Método**: `DELETE`
 - **Path Variables**:
     - `{id}` Long:id de parada
+
+#### 6. Obtener la parada con una cantidad determida de scooters que estan en la parada mas cercana segun longitud y latitud (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `/stoppings/nearby?minScooters={minScooter}&latitude={latitude}&longitude={longitude}`
+- **Método**: `GET`
+- **Path Variables**:
+    - `{minScooter}` int
+    - `{latitude}`   double
+    -  `{longitude}`  double
 
 
 ## Travel Service
@@ -575,5 +588,16 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
           {
             1250000.00
           } 
-     ```   
+     ```
+
+  #### 8.  Obtener el listado que muestra los Scooters en mantenimiento y los que estan operativos (FUNCIONALIDAD DE ENUNCIADO)
+- **URL**: `admins/scooter-status-summary`
+- **Método**: `GET`
+- **Response Body**: 
+    ```json
+          {
+            ["operation": 52
+             "maintenance": 27]
+          } 
+     ```      
 
