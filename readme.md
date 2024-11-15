@@ -538,7 +538,7 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
     ```json
     {
     "name": "Lucas;
-    "lastName: "Ortiz";
+    "lastName": "Ortiz";
     "rol": "admin-junior";
     }
     ```
