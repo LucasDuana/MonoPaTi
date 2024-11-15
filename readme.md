@@ -524,7 +524,7 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
     ```json
     {
     "name": "Lucas;
-    "lastName: "Ortiz";
+    "lastName": "Ortiz";
     "rol": "admin-general";
     }
     ```
@@ -558,8 +558,8 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
     ```json
           {
              "scooterName": "ScooterA";
-             totalEffectiveUsage: "1 hora y 25 minutos";
-             totalKm: 2800.00;
+             "totalEffectiveUsage": "1 hora y 25 minutos";
+             "totalKm": 2800.00;
           } 
      ```
 
