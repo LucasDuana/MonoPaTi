@@ -523,7 +523,7 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
 - **Request Body**:
     ```json
     {
-    "name": "Lucas,
+    "name": "Lucas",
     "lastName": "Ortiz",
     "rol": "admin-general",
     }
@@ -537,7 +537,7 @@ Este servicio gestiona las operaciones relacionadas con los administradores y el
 - **Request Body**:
     ```json
     {
-    "name": "Lucas,
+    "name": "Lucas",
     "lastName": "Ortiz",
     "rol": "admin-junior",
     }
