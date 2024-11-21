@@ -63,7 +63,7 @@ public class AdminService {
 
     public Map<String, Integer> getScooterStatusSummary() {
 
-            String url="http://localhost:8081/scooters";
+            String url="http://localhost:8080/scooters";
 
 
             ResponseEntity<List> inUseResponse = restTemplate.getForEntity(url + "?status=in_use", List.class);
@@ -110,7 +110,7 @@ public class AdminService {
 
 
     public Double getTotalInvoiceAmount(String startDate, String endDate) {
-        String url = "http://localhost:8083/invoices/total-amount?startDate=" + startDate + "&endDate=" + endDate;
+        String url = "http://localhost:8080/invoices/total-amount?startDate=" + startDate + "&endDate=" + endDate;
         return restTemplate.getForObject(url, Double.class);
     }
 

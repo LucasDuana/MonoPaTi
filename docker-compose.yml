@@ -44,3 +44,14 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: admin
 
+  mongodb-tariff:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    container_name: mongodb-tariff
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: tariff
+    volumes:
+      - ./docker/volume_mongo:/data/db

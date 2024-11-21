@@ -20,9 +20,15 @@ public class UserController {
     //Basic CRUD operations for User entity
 
 
-    //GET /users
+    // GET /users
     @GetMapping("")
-    public ResponseEntity<List<UserDTO>> getUsers(){
+    public ResponseEntity<?> getUsers(@RequestParam(required = false) String email) {
+        if (email != null && !email.isEmpty()) {
+            // Filtrar por email si el parámetro está presente
+            UserDTO user = this.userService.getUserByEmail(email);
+            return ResponseEntity.ok(user);
+        }
+        // Si no hay parámetro email, devolver todos los usuarios
         return ResponseEntity.ok(this.userService.getUsers());
     }
 
@@ -31,6 +37,7 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId){
         return ResponseEntity.ok(this.userService.getUserById(userId));
     }
+
 
 
     //POST /users

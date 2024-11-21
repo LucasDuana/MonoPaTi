@@ -64,7 +64,7 @@ public class ScooterService {
 
     public List<ScooterDTO> getScootersWithMoreThanXTravelsInYear(int travels, int year) {
 
-        String url = "http://localhost:8082/travels/filter?year=" + year + "&travels=" + travels;
+        String url = "http://localhost:8080/travels/filter?year=" + year + "&travels=" + travels;
 
 
         TravelDTO[] travelDtos = restTemplate.getForObject(url, TravelDTO[].class);
@@ -171,7 +171,7 @@ public class ScooterService {
 
 
     public List<ScooterReportForUseTime> getScooterUsageReportWithPauses() {
-        String travelReportUrl = "http://localhost:8082/travels/usage-report-pause";
+        String travelReportUrl = "http://localhost:8080/travels/usage-report-pause";
         TravelRequest[] travelRequests = fetchTravelData(travelReportUrl);
 
         if (travelRequests == null || travelRequests.length == 0) {
@@ -182,7 +182,7 @@ public class ScooterService {
     }
 
     public List<ScooterReportForUseTime> getScooterUsageReport() {
-        String travelReportUrl = "http://localhost:8082/travels/total-usage-report";
+        String travelReportUrl = "http://localhost:8080/travels/total-usage-report";
         TravelRequest[] travelRequests = fetchTravelData(travelReportUrl);
 
         if (travelRequests == null || travelRequests.length == 0) {

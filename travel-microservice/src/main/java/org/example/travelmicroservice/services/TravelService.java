@@ -44,14 +44,14 @@ public class TravelService {
     public TravelDTO finalizarViaje(Long travelId){
         TravelDTO travel = this.getTravelById(travelId);
 
-        String urlScooter = "http://localhost:8081/scooters/" + travel.getScooterId();
+        String urlScooter = "http://localhost:8080/scooters/" + travel.getScooterId();
         ScooterDTO scooter = restTemplate.getForObject(urlScooter, ScooterDTO.class);
 
-        String urlStopping = "http://localhost:8081/stoppings/" + travel.getStoppingEndStopId();
+        String urlStopping = "http://localhost:8080/stoppings/" + travel.getStoppingEndStopId();
         StoppingDTO stopping = restTemplate.getForObject(urlStopping, StoppingDTO.class);
 
         if(scooter.getLatitude().equals(stopping.getLatitude()) && scooter.getLongitude().equals(stopping.getLongitude())) {
-            String urlPay= "http://localhost:8083/bills/create/" + travelId;
+            String urlPay= "http://localhost:8080/bills/create/" + travelId;
             restTemplate.postForObject(urlPay, null, String.class);
             return travel;
         }

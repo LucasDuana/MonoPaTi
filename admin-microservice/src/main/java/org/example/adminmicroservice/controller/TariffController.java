@@ -28,23 +28,24 @@ public class TariffController {
     }
 
     //Get tariff by id
-    @GetMapping("/{id}")
+    /**@GetMapping("/{id}")
     public ResponseEntity<TariffDTO> getTariffById(@PathVariable Long id) {
         return ResponseEntity.ok(tariffService.getTariffById(id));
-    }
+    }**/
 
     //Create a tariff
     @PostMapping("")
-    public ResponseEntity<TariffDTO> createTariff(@RequestBody Tariff tariff) {
-        return ResponseEntity.ok(tariffService.createTariff(tariff));
+    public ResponseEntity<?> createTariff(@RequestBody TariffDTO tariff) {
+        this.tariffService.saveTariff(tariff);
+        return ResponseEntity.ok("Tarifa creada exitosamente!");
     }
 
     //Delete a tariff
-    @DeleteMapping("/{id}")
+   /** @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTariff(@PathVariable Long id) {
         tariffService.deleteTariff(id);
         return ResponseEntity.ok().build();
-    }
+    }*/
 
 
 }

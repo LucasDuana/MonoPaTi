@@ -29,22 +29,8 @@ public class TariffService {
         }).collect(Collectors.toList());
     }
 
-    public TariffDTO getTariffById(Long id) {
-        return tariffRepository.findById(id).map(tariff -> {
-            TariffDTO tariffDTO = new TariffDTO();
-            tariffDTO.setPricePerKm(tariff.getCostPerKm());
-            tariffDTO.setPricePerMinute(tariff.getCostPerMinute());
-            tariffDTO.setStartDate(tariff.getStartDate());
-            return tariffDTO;
-        }).orElse(null);
-    }
-
-    public TariffDTO createTariff(Tariff tariff) {
-        return modelMapper.map(tariffRepository.save(tariff), TariffDTO.class);
-    }
-
-    public void deleteTariff(Long id) {
-        tariffRepository.deleteById(id);
+    public void saveTariff(TariffDTO tarrif){
+        this.tariffRepository.save(modelMapper.map(tarrif, Tariff.class));
     }
 
 }

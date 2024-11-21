@@ -39,7 +39,7 @@ public class BillService {
 
     //get all bills
     public List<BillDTO> getAllBills() {
-        return billRepository.findAll().stream().map(bill -> new BillDTO(bill.getUserId(), bill.getTripId(), bill.getTotalCost(), bill.getDate(), bill.getTariff())).collect(Collectors.toList());
+        return billRepository.findAll().stream().map(bill -> new BillDTO(bill.getUserId(), bill.getTripId(), bill.getTotalCost(), bill.getDate(),bill.getTariffId())).collect(Collectors.toList());
     }
 
     private static long calculateDurationInMinutes(LocalTime startTime, LocalTime endTime) {
@@ -49,11 +49,12 @@ public class BillService {
 
 
     public BillDTO createBill(Long travelId){
-        String urlGetTripAsociated = "http://localhost:8082/travels/"+travelId;
+        String urlGetTripAsociated = "http://localhost:8080/travels/"+travelId;
         TravelDTO travelDTO = restTemplate.getForObject(urlGetTripAsociated, TravelDTO.class);
 
 
-        Tariff actualTariff=this.tariffRepository.findLatestTariff(LocalDate.now()).get();
+        Tariff actualTariff = tariffRepository.findLatestTariffBeforeDate(LocalDate.now()).orElseThrow(() -> new RuntimeException("No tariff found"));
+
 
         long minutes = calculateDurationInMinutes(travelDTO.getStartTime(), travelDTO.getEndTime());
 
@@ -62,7 +63,7 @@ public class BillService {
         Bill bill = new Bill();
         bill.setUserId(travelDTO.getUserId());
         bill.setTripId(travelId);
-        bill.setTariff(actualTariff);
+        bill.setTariffId(actualTariff.getId());
         bill.setTotalCost(priceTrip);
         bill.setDate(LocalDate.now());
 

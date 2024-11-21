@@ -2,6 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <groupId>org.example</groupId>
     <artifactId>TPE-Microservicios</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -19,6 +26,7 @@
         <module>scooter-microservice</module>
         <module>travel-microservice</module>
         <module>admin-microservice</module>
+        <module>api-gateway</module>
     </modules>
 
     <dependencies>

@@ -8,6 +8,8 @@ import org.example.usermicroservice.repositories.AccountRepository;
 import org.example.usermicroservice.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.example.usermicroservice.model.User;
 import java.util.List;
@@ -23,6 +25,9 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private AccountRepository accountRepository;
+
+
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public List<UserDTO> getUsers(){
         return this.userRepository.findAll().stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
@@ -60,6 +65,10 @@ public class UserService {
 
         User user = this.modelMapper.map(userDTO, User.class);
 
+        String oldPass = user.getPassword();
+
+        user.setPassword(this.passwordEncoder.encode(oldPass));
+
         User savedUser = this.userRepository.save(user);
 
         return this.modelMapper.map(savedUser, UserDTO.class);
@@ -71,4 +80,14 @@ public class UserService {
         User savedUser = this.userRepository.save(user);
         return this.modelMapper.map(savedUser, UserDTO.class);
     }
+
+
+
+    public UserDTO getUserByEmail(String email) {
+        // Buscar el usuario por email
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + email));
+        return modelMapper.map(user, UserDTO.class);
+    }
+
 }

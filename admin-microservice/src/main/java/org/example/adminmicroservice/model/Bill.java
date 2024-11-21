@@ -18,7 +18,7 @@ public class Bill {
     private Long tripId;
     private double totalCost;
     private LocalDate date;
-    @ManyToOne
-    private Tariff tariff;
+
+    private Integer tariffId;
 
 }

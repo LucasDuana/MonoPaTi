@@ -14,13 +14,15 @@ public class BillDTO {
     private Long tripId;
     private double totalCost;
     private LocalDate date;
-    private Tariff tariff;
+    private Integer tariff;
 
-    public BillDTO(Long userId, Long tripId, double totalCost, LocalDate date, Tariff tariff) {
+    public BillDTO(Long userId, Long tripId, double totalCost, LocalDate date, Integer tariff) {
         this.userId = userId;
         this.tripId = tripId;
         this.totalCost = totalCost;
         this.date = date;
         this.tariff = tariff;
     }
+
+
 }
